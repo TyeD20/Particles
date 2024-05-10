@@ -60,7 +60,7 @@ void Particle::draw(RenderTarget& target, RenderStates states) const
     lines[0].position = center;
     lines[0].color = m_color1;
 
-    for(int i = 1; i < m_numPoints; i++)
+    for(int i = 1; i <= m_numPoints; i++)
     {
         sf::Vector2f coords(m_A(0, i -1), m_A(1, i-1));
         sf::Vector2i pixelCoords = target.mapCoordsToPixel(coords, m_cartesianPlane);
@@ -74,13 +74,13 @@ void Particle::draw(RenderTarget& target, RenderStates states) const
 
 void Particle::update(float dt)
 {
-    m_ttl -= dt;
+    m_ttl = m_ttl - dt;
     rotate(dt * m_radiansPerSec);
     scale(SCALE);
 
     float dx, dy;
     dx = m_vx * dt;
-    m_vy -= G * dt;
+    m_vy = m_vy - ( G * dt );
     dy = m_vy * dt;
     translate(dx, dy);
 }
